@@ -17,6 +17,7 @@ namespace OpenVDBPointsUnity
         {
             GetAbsoluteAssetPath(ctx);
             OpenVDBPoints points = new OpenVDBPoints(absoluteAssetPath);
+            points.Load();
             uint count = points.Count;
             Debug.Log(string.Format("Total Points: {0}", count.ToString()));
         }

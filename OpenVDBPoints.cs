@@ -135,6 +135,7 @@ namespace OpenVDBPointsUnity
         public static bool ConvertPLYToVDB(string filename, string outfile, LoggingCallback cb = null)
         {
             LoggingCallback logger = cb == null ? LogMessage : cb;
+            openvdbInitialize();
             return convertPLYToVDB(filename, outfile, logger);
         }
         /// <summary> Default <see cref="LoggingCallback">callback</see> for logging native messages. </summary> 
