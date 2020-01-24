@@ -9,11 +9,7 @@ namespace OpenVDBPointsUnity
 {
     public abstract class BaseVDBImporter : ScriptedImporter
     {
-        [DllImport("openvdb-points-unity")]
-        protected static extern void openvdbInitialize();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void LoggingCallback(string message);
-        protected static LoggingCallback loggingCallback;
+        
         protected string absoluteAssetPath;
 
         protected void GetAbsoluteAssetPath(AssetImportContext ctx)
