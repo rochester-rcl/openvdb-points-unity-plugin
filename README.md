@@ -10,4 +10,4 @@ Clone repository into MyProject/Assets
 
 Build the native plugin and dependencies via the conan recipe found [here](https://github.com/rochester-rcl/conan-openvdb-points-unity)
 
-Copy OpenVDBPointsUnity folder the contents into the necessary platform folder in MyProject/Assets/Plugins
+Copy OpenVDBPointsUnity folder contents into the necessary platform folder in MyProject/Assets/Plugins
