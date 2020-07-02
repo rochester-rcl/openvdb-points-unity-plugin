@@ -9,6 +9,11 @@ namespace OpenVDBPointsUnity
     /// <summary>Native interface for OpenVDB Points Module</summary> 
     public sealed class OpenVDBPoints
     {
+        #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        private const string libraryName = "libopenvdb-points-unity";
+        #else 
+        private const string libraryName = "openvdb-points-unity";
+        #endif
         /// <summary>The absolute path to the .vdb file on disk.</summary>
         /// <remarks>Note- must be an absolute path.</remarks>
         public string FilePath { get; set; }
@@ -59,25 +64,25 @@ namespace OpenVDBPointsUnity
         /// <summary>The default grid name used to access the PointDataGrid.</summary>
         private const string gridName = "Points";
         /// <summary>Wrapper for openvdb::initialize.</summary>
-        [DllImport("openvdb-points-unity")]
+        [DllImport(libraryName)]
         private static extern void openvdbInitialize();
         /// <summary>Loads a PointDataGrid from a file.</summary>
         /// <param name="filename">Absolute path to a .vdb file containing the grid.</param>
         /// <param name="gridName">The name of the grid to load.</param>
         /// <param name="cb">The <see cref="LoggingCallback">callback</see> for logging native messages.</param>
         /// <returns>A pointer to the SharedPointDataGridReference on the native side. </returns>
-        [DllImport("openvdb-points-unity", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(libraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr readPointGridFromFile(string filename, string gridName, LoggingCallback cb);
         /// <summary>The total number of points in a PointDataGrid.</summary>
         /// <param name="gridRef">Pointer to the SharedPointDataGridReference on the native side.</summary>
         /// <returns>The total number of points in the grid.</returns>
-        [DllImport("openvdb-points-unity", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(libraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern uint getPointCountFromGrid(IntPtr gridRef);
         /// <summary>
         /// Deletes a SharedPointDataGridReference and its corresponding PointDataGrid.
         /// </summary>
         /// <param name="gridRef">Pointer to the SharedPointDataGridReference on the native side.</summary>
-        [DllImport("openvdb-points-unity")]
+        [DllImport(libraryName)]
         private static extern void destroySharedPointDataGridReference(IntPtr gridRef);
         /// <summary> Converts an unordered point cloud from a .ply file to VDB format. </summary>
         /// <param name="filename">The absolute path to the .ply file. </param>
@@ -85,7 +90,7 @@ namespace OpenVDBPointsUnity
         /// <param name="cb">The <see cref="LoggingCallback">callback</see> for logging native messages.</param>
         /// <returns>True if the file was successfully converted,  false  if not. </returns>
         /// <remarks>Currently only supports vertex positions (float) and colors (uint8) </remarks>
-        [DllImport("openvdb-points-unity", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(libraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool convertPLYToVDB(string filename, string outfile, LoggingCallback callback);
         /// <summary>Initializes OpenVDB.</summary>
         private void Initialize()
